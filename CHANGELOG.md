@@ -1,3 +1,55 @@
+#### 6.0.0
+* issue #68 - fixed issue with responseType='token'
+* issue #65 - added tryTokenRefreshIfUnauthorized (off by default)
+* pull request #64 & pull request #67 - added ability to change the httpService `Ng2UiAuthModule.forRootWithCustomHttp(config, {provide: JwtHttp, useClass: MyHttp, deps: [Http, SharedService, ConfigService]})`
+* **BREAKING CHANGE:** Replaced `Ng2UiAuthModule.getWithConfig(MyAuthConfig)` with `Ng2UiAuthModule.forRoot(MyAuthConfig)` to look more like other modules
+
+#### 5.0.0
+* might be breaking: changed out folder names, not linking to the bundled version by default because of webpack issues with the pre-bundled version
+* pull request #63 set token only when it's available
+* pull request #61 [expiration date] check payload is defined. 
+* pull request #60 allow string as a scope option.
+* pull request #57 allow any type in http body.
+
+
+#### 4.1.1
+* `cordova` variable defaults to `window.cordova`
+* fixed issue with oauth 1
+
+#### 4.1.0
+* fix issue #47 using this library without server url causes exception.
+* switched concatMap with switchMap (should be a better fit for that scenerio)
+* added ability to force "exchangeForToken" by setting it to true in `IOauthOptions`
+* added ability to force "exchangeForToken" and provide your own implementation by providing an exchangeForToken function in `IOauthOptions`
+* fix issue #50 added ability to manually configure the `resolveToken` method via config
+* fix issue #50 tokenRoot and tokens received from data property did not resolve.
+
+#### 4.0.0
+* Aligned default config with Satellizer (added Spotify)
+* AOT compilation now works
+* Peer dependency is now ^2.0.0
+* **BREAKING CHANGE:** Changed service names to have "Service" postfix ("Auth" is now AuthService) all except JwtHttp which remains the same.
+* **BREAKING CHANGE:** Initializing the library works like this now:
+```typescript
+export class MyAuthConfig extends CustomConfig {
+    defaultHeaders = {'Content-Type': 'application/json'};
+    providers = {google: {clientId: GOOGLE_CLIENT_ID}};
+}
+
+@NgModule({
+    imports: [
+        BrowserModule,
+        HttpModule,
+        Ng2UiAuthModule.getWithConfig(MyAuthConfig),
+        ...
+    ]
+    ...
+```
+
+#### 3.2.5
+* Added "refresh token" flow, if you configure 'autoRefreshToken' to true then if you call a webservice when the token expires this library automatically sends it to the server using 'refreshUrl' endpoint (can be set in config default = '/auth/refresh') first and then sets a new token if it receives it and tries to call the original request. (issue #41)
+* Added 'state' to the 'optionalUrlParams' of google according to issue #43
+
 #### 3.2.2
 * after testing issue #29 should be fixed
 
