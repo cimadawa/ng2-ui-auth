@@ -340,10 +340,12 @@ var SharedService = (function () {
                     }
                 }
                 catch (e) {
-                    return true;
+                    this.storage.remove(this.tokenName);
+                    return false;
                 }
             }
-            return true;
+            this.storage.remove(this.tokenName);
+            return false;
         }
         return false;
     };

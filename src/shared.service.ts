@@ -78,11 +78,13 @@ export class SharedService {
                     }
                 } catch (e) {
                     // pass: Non-JWT token that looks like JWT
-                    return true;
+                    this.storage.remove(this.tokenName);
+                    return false;
                 }
             }
             // pass: All other tokens
-            return true;
+            this.storage.remove(this.tokenName);
+            return false;
         }
         // lail: No token at all
         return false;
