@@ -11,6 +11,7 @@ import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class AuthService {
+    nextURL:string = '';
     constructor(private shared: SharedService,
                 private local: LocalService,
                 private oauth: OauthService) {

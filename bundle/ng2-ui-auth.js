@@ -894,6 +894,7 @@ var AuthService = (function () {
         this.shared = shared;
         this.local = local;
         this.oauth = oauth;
+        this.nextURL = '';
     }
     AuthService.prototype.login = function (user, opts) {
         return this.local.login(user, opts);
